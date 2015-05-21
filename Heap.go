@@ -3,12 +3,11 @@ package main;
 import "fmt" 
 
 func main() {
-	// testSlice := []int{1,1,1,1,1}
-	// fmt.Println(heapSort(testSlice))
-	// testSlice = []int{5,1,1,1,1}
-	// fmt.Println(heapSort(testSlice))
-	testSlice := []int{5,4,3,2,1}
+	testSlice := []int{4,1,3,2,16,9, 10, 14, 8, 7}
 	fmt.Println(heapSort(testSlice))
+	testSlice = []int{4,4,4,4,5}
+	fmt.Println(heapSort(testSlice))
+
 
 }
 
@@ -28,21 +27,21 @@ func (h MaxHeap) findMax() int{
 
 func heapSort(slice []int) []int {
 	h := BuildMaxHeap(slice)
-	for i := len(slice); i >=1 ; i-- {
-		first := slice[0]
-		last := slice[len(slice) - 1]
-		slice[0] = last
-		slice[len(slice) - 1] = first
+	fmt.Println(slice)
+	for i := len(h.slice) - 1; i > 0 ; i-- {
+		first := h.slice[0]
+		last := h.slice[i]
+		h.slice[0] = last
+		h.slice[i] = first
 		h.heapSize--
-		h.MaxHeapify(1)
+		h.MaxHeapify(0)
+
 	}
 	return h.slice
 }
 
 func BuildMaxHeap(slice []int) MaxHeap{
 	h := MaxHeap{slice: slice, heapSize: len(slice)}
-
-
 	for i := len(slice)/2; i >= 0; i-- {
 		h.MaxHeapify(i)
 	}
@@ -50,17 +49,10 @@ func BuildMaxHeap(slice []int) MaxHeap{
 }
 
 func (h MaxHeap) MaxHeapify(i int) {
-	left := 2*i
-	right := 2*i + 1
+	left := 2*i + 1
+	right := 2*i + 2
 	largest := i
 	slice := h.slice
-	// fmt.Println("left")
-	// fmt.Println(left)
-	// fmt.Println("right")
-	// fmt.Println(right)
-	// fmt.Println("i")
-	// fmt.Println(i)
-	// fmt.Println(h.size())
 
 	if left < h.size() {
 		if slice[left] > slice[i] {
@@ -74,15 +66,8 @@ func (h MaxHeap) MaxHeapify(i int) {
 			largest = right
 		}
 	}
-	// fmt.Println("largest")
-	// fmt.Println(largest)
 	if largest != i {
-		prevLargest := slice[i]
-		slice[i] = slice[largest]
-		slice[largest] = prevLargest
-		// fmt.Println(slice)
-		// fmt.Println("====")
+		slice[i], slice[largest] = slice[largest], slice[i]
 		h.MaxHeapify(largest)
-		//h.MaxHeapify(largest)
 	}
 }
