@@ -47,12 +47,17 @@ func (h MaxHeap) increaseKey(i int, key int) {
 		fmt.Println(err)
 	}
 	h.slice[i] = key
-	parentVal := h.slice[(i+1)/2]
 	index := i
+	parentVal := h.slice[(i+1)/2]
+	fmt.Println(h.slice)
+	fmt.Println(i)
 	for parentVal < key && index > 0 {
-		h.slice[(i+1)/2], h.slice[i] = h.slice[i], h.slice[(i+1)/2]
-		parentVal = h.slice[(index+1)/2]
+		h.slice[(index+1)/2], h.slice[index] = h.slice[index], h.slice[(index+1)/2]
+		fmt.Println(h.slice[(i+1)/2])
+		fmt.Println(h.slice[i])
+		fmt.Println("===")
 		index = (index +1)/2
+		parentVal = h.slice[(index+1)/2]
 	}
 }
 
