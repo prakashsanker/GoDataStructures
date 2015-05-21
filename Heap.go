@@ -3,25 +3,13 @@ package main;
 import "fmt" 
 
 func main() {
+	// testSlice := []int{1,1,1,1,1}
+	// fmt.Println(heapSort(testSlice))
+	// testSlice = []int{5,1,1,1,1}
+	// fmt.Println(heapSort(testSlice))
 	testSlice := []int{5,4,3,2,1}
 	fmt.Println(heapSort(testSlice))
-}
-type IMaxHeap interface {
 
-	/*Insert(i interface{}) bool
-
-	FindMax() interface{}
-
-	ExtractMax() interface{}
-
-	DeleteMax() */
-
-
-	//Merge(toMerge MaxHeap) MaxHeap
-
-	findMax() int 
-
-	size() int
 }
 
 type MaxHeap struct {
@@ -53,6 +41,8 @@ func heapSort(slice []int) []int {
 
 func BuildMaxHeap(slice []int) MaxHeap{
 	h := MaxHeap{slice: slice, heapSize: len(slice)}
+
+
 	for i := len(slice)/2; i >= 0; i-- {
 		h.MaxHeapify(i)
 	}
@@ -62,22 +52,37 @@ func BuildMaxHeap(slice []int) MaxHeap{
 func (h MaxHeap) MaxHeapify(i int) {
 	left := 2*i
 	right := 2*i + 1
-	largest := 0
+	largest := i
 	slice := h.slice
-	fmt.Println("IN MAX HEAPIFY")
-	fmt.Println(slice)
-	if left <= h.size() && slice[left] > slice[i] {
-		largest = left
-	} else {
-		largest = i
+	// fmt.Println("left")
+	// fmt.Println(left)
+	// fmt.Println("right")
+	// fmt.Println(right)
+	// fmt.Println("i")
+	// fmt.Println(i)
+	// fmt.Println(h.size())
+
+	if left < h.size() {
+		if slice[left] > slice[i] {
+			largest = left
+		} else {
+			largest = i
+		}
 	}
-	if right <= h.size() && slice[right] > slice[largest] {
-		largest = right
+	if right < h.size() {
+		if slice[right] > slice[largest] {
+			largest = right
+		}
 	}
+	// fmt.Println("largest")
+	// fmt.Println(largest)
 	if largest != i {
 		prevLargest := slice[i]
 		slice[i] = slice[largest]
-		slice[largest] = slice[prevLargest]
+		slice[largest] = prevLargest
+		// fmt.Println(slice)
+		// fmt.Println("====")
 		h.MaxHeapify(largest)
+		//h.MaxHeapify(largest)
 	}
 }
