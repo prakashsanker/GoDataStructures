@@ -13,11 +13,13 @@ import (
 
 func main() {
 	testSlice := []int{4,1,3,2,16,9, 10, 14, 8, 7}
+	fmt.Println(heapSort(testSlice))
 	//fmt.Println(heapSort(testSlice))
-	h := BuildMaxHeap(testSlice)
+	// h := BuildMaxHeap(testSlice)
 
-	h.increaseKey(8, 15)
-	fmt.Println(h.slice)
+	// h.increaseKey(8, 15)
+	// fmt.Println(h.slice)
+	// heapSort1(testSlice)
 
 }
 
@@ -42,7 +44,7 @@ func (h MaxHeap) extractMax() int {
 	}
 	//remove and return largest element
 	largestElem := h.slice[0]
-	h.slice[0] = h.slice[h.size()]
+	h.slice[0] = h.slice[h.size()-1]
 	h.MaxHeapify(0)
 	return largestElem
 }
@@ -61,6 +63,7 @@ func (h MaxHeap) increaseKey(i int, key int) {
 		parentVal = h.slice[(index+1)/2]
 	}
 }
+
 
 func heapSort(slice []int) []int {
 	h := BuildMaxHeap(slice)
