@@ -1,5 +1,11 @@
 package main;
 
+//MaxHeapify runs in O(log n)
+//Build Max heap runs in O(n)
+//Heap sort runs in O(nlogn)
+//Increase key runs in O(log n)
+//Extract Max runs in O(const + log n) = O(log n)
+
 import (
 		"errors"
 		"fmt"
@@ -49,13 +55,8 @@ func (h MaxHeap) increaseKey(i int, key int) {
 	h.slice[i] = key
 	index := i
 	parentVal := h.slice[(i+1)/2]
-	fmt.Println(h.slice)
-	fmt.Println(i)
 	for parentVal < key && index > 0 {
 		h.slice[(index+1)/2], h.slice[index] = h.slice[index], h.slice[(index+1)/2]
-		fmt.Println(h.slice[(i+1)/2])
-		fmt.Println(h.slice[i])
-		fmt.Println("===")
 		index = (index +1)/2
 		parentVal = h.slice[(index+1)/2]
 	}
